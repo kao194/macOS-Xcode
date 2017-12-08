@@ -23,7 +23,7 @@
                                 <rect key="frame" x="0.0" y="28" width="375" height="44"/>
                                 <autoresizingMask key="autoresizingMask"/>
                                 <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" tableViewCell="x8C-6R-fBt" id="Bcc-0u-T51">
-                                    <rect key="frame" x="0.0" y="0.0" width="375" height="43"/>
+                                    <rect key="frame" x="0.0" y="0.0" width="375" height="44"/>
                                     <autoresizingMask key="autoresizingMask"/>
                                 </tableViewCellContentView>
                             </tableViewCell>
@@ -52,7 +52,7 @@
                                 <rect key="frame" x="0.0" y="28" width="375" height="44"/>
                                 <autoresizingMask key="autoresizingMask"/>
                                 <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" tableViewCell="Q6x-HA-QZa" id="trt-TZ-r51">
-                                    <rect key="frame" x="0.0" y="0.0" width="375" height="43"/>
+                                    <rect key="frame" x="0.0" y="0.0" width="375" height="44"/>
                                     <autoresizingMask key="autoresizingMask"/>
                                 </tableViewCellContentView>
                             </tableViewCell>
@@ -92,10 +92,6 @@
                                 <fontDescription key="fontDescription" type="system" pointSize="14"/>
                                 <textInputTraits key="textInputTraits"/>
                             </textField>
-                            <stackView opaque="NO" contentMode="scaleToFill" fixedFrame="YES" axis="vertical" translatesAutoresizingMaskIntoConstraints="NO" id="Wxi-Rt-l98">
-                                <rect key="frame" x="80" y="85" width="92" height="30"/>
-                                <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
-                            </stackView>
                             <button opaque="NO" contentMode="scaleToFill" fixedFrame="YES" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="3s6-EQ-MyG">
                                 <rect key="frame" x="60" y="242" width="89" height="30"/>
                                 <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
@@ -115,36 +111,23 @@
                                 <nil key="textColor"/>
                                 <nil key="highlightedColor"/>
                             </label>
-                            <stackView opaque="NO" contentMode="scaleToFill" fixedFrame="YES" axis="vertical" translatesAutoresizingMaskIntoConstraints="NO" id="oCD-SV-35y">
-                                <rect key="frame" x="141" y="83" width="92" height="30"/>
+                            <button opaque="NO" contentMode="scaleToFill" fixedFrame="YES" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="zjm-tx-JSb">
+                                <rect key="frame" x="103" y="90" width="46" height="30"/>
                                 <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
-                                <subviews>
-                                    <stackView opaque="NO" contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="Dib-aO-g90">
-                                        <rect key="frame" x="0.0" y="0.0" width="92" height="30"/>
-                                        <subviews>
-                                            <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="zjm-tx-JSb">
-                                                <rect key="frame" x="0.0" y="0.0" width="46" height="30"/>
-                                                <state key="normal" title="Button"/>
-                                            </button>
-                                            <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="Lk4-lR-QFD">
-                                                <rect key="frame" x="46" y="0.0" width="46" height="30"/>
-                                                <state key="normal" title="Button"/>
-                                            </button>
-                                        </subviews>
-                                    </stackView>
-                                </subviews>
-                            </stackView>
+                                <state key="normal" title="Button"/>
+                            </button>
+                            <button opaque="NO" contentMode="scaleToFill" fixedFrame="YES" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="Lk4-lR-QFD">
+                                <rect key="frame" x="179" y="90" width="91" height="30"/>
+                                <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                                <state key="normal" title="Button"/>
+                            </button>
                         </subviews>
                         <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
                         <constraints>
                             <constraint firstItem="ezO-ho-utf" firstAttribute="baseline" secondItem="6kk-JN-9Wg" secondAttribute="baseline" id="Dcz-zd-Tyk"/>
-                            <constraint firstItem="zjm-tx-JSb" firstAttribute="leading" secondItem="moj-bA-qUD" secondAttribute="leadingMargin" constant="125" id="ImE-3v-phw"/>
-                            <constraint firstItem="Dib-aO-g90" firstAttribute="centerX" secondItem="moj-bA-qUD" secondAttribute="centerX" id="NIg-w8-9J1"/>
                             <constraint firstItem="MLB-J1-eYh" firstAttribute="top" secondItem="jjR-9q-u9f" secondAttribute="bottom" id="Nhy-Mq-RfI"/>
                             <constraint firstItem="ezO-ho-utf" firstAttribute="leading" secondItem="moj-bA-qUD" secondAttribute="leadingMargin" id="W4I-Bb-OyX"/>
                             <constraint firstItem="MLB-J1-eYh" firstAttribute="centerX" secondItem="moj-bA-qUD" secondAttribute="centerX" constant="1" id="aFd-y0-8Vj"/>
-                            <constraint firstAttribute="trailingMargin" secondItem="Lk4-lR-QFD" secondAttribute="trailing" constant="126" id="d9v-BO-XiS"/>
-                            <constraint firstItem="Dib-aO-g90" firstAttribute="centerY" secondItem="moj-bA-qUD" secondAttribute="centerY" id="gQY-WF-j7q"/>
                             <constraint firstItem="6kk-JN-9Wg" firstAttribute="leading" secondItem="ezO-ho-utf" secondAttribute="trailing" constant="8" symbolic="YES" id="l3W-Ue-wJm"/>
                             <constraint firstAttribute="trailingMargin" secondItem="6kk-JN-9Wg" secondAttribute="trailing" id="nsY-eM-k5d"/>
                             <constraint firstItem="ezO-ho-utf" firstAttribute="top" secondItem="MLB-J1-eYh" secondAttribute="bottom" constant="8" symbolic="YES" id="wYC-YZ-Kub"/>

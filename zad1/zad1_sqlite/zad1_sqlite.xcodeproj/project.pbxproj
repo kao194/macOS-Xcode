@@ -14,6 +14,10 @@
 		AC1843F21FD15187008F7FAD /* LaunchScreen.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = AC1843F01FD15187008F7FAD /* LaunchScreen.storyboard */; };
 		AC1843FD1FD15187008F7FAD /* zad1_sqliteTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = AC1843FC1FD15187008F7FAD /* zad1_sqliteTests.swift */; };
 		AC1844081FD15187008F7FAD /* zad1_sqliteUITests.swift in Sources */ = {isa = PBXBuildFile; fileRef = AC1844071FD15187008F7FAD /* zad1_sqliteUITests.swift */; };
+		ACD820E91FDA8C2100890CFA /* libsqlite3.tbd in Frameworks */ = {isa = PBXBuildFile; fileRef = ACD820E81FDA8C2100890CFA /* libsqlite3.tbd */; };
+		ACD820EB1FDA8D9D00890CFA /* SQLiteHandler.swift in Sources */ = {isa = PBXBuildFile; fileRef = ACD820EA1FDA8D9D00890CFA /* SQLiteHandler.swift */; };
+		ACD820ED1FDA8FD200890CFA /* Sensor.swift in Sources */ = {isa = PBXBuildFile; fileRef = ACD820EC1FDA8FD200890CFA /* Sensor.swift */; };
+		ACD820EF1FDA914700890CFA /* Reading.swift in Sources */ = {isa = PBXBuildFile; fileRef = ACD820EE1FDA914700890CFA /* Reading.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -47,6 +51,11 @@
 		AC1844031FD15187008F7FAD /* zad1_sqliteUITests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = zad1_sqliteUITests.xctest; sourceTree = BUILT_PRODUCTS_DIR; };
 		AC1844071FD15187008F7FAD /* zad1_sqliteUITests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = zad1_sqliteUITests.swift; sourceTree = "<group>"; };
 		AC1844091FD15187008F7FAD /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
+		ACD820E61FDA8A6E00890CFA /* sqliteHeader.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = sqliteHeader.h; sourceTree = "<group>"; };
+		ACD820E81FDA8C2100890CFA /* libsqlite3.tbd */ = {isa = PBXFileReference; lastKnownFileType = "sourcecode.text-based-dylib-definition"; name = libsqlite3.tbd; path = usr/lib/libsqlite3.tbd; sourceTree = SDKROOT; };
+		ACD820EA1FDA8D9D00890CFA /* SQLiteHandler.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = SQLiteHandler.swift; sourceTree = "<group>"; };
+		ACD820EC1FDA8FD200890CFA /* Sensor.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Sensor.swift; sourceTree = "<group>"; };
+		ACD820EE1FDA914700890CFA /* Reading.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Reading.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -54,6 +63,7 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				ACD820E91FDA8C2100890CFA /* libsqlite3.tbd in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -77,10 +87,12 @@
 		AC1843DB1FD15187008F7FAD = {
 			isa = PBXGroup;
 			children = (
+				ACD820E61FDA8A6E00890CFA /* sqliteHeader.h */,
 				AC1843E61FD15187008F7FAD /* zad1_sqlite */,
 				AC1843FB1FD15187008F7FAD /* zad1_sqliteTests */,
 				AC1844061FD15187008F7FAD /* zad1_sqliteUITests */,
 				AC1843E51FD15187008F7FAD /* Products */,
+				ACD820E71FDA8C2100890CFA /* Frameworks */,
 			);
 			sourceTree = "<group>";
 		};
@@ -103,6 +115,9 @@
 				AC1843EE1FD15187008F7FAD /* Assets.xcassets */,
 				AC1843F01FD15187008F7FAD /* LaunchScreen.storyboard */,
 				AC1843F31FD15187008F7FAD /* Info.plist */,
+				ACD820EA1FDA8D9D00890CFA /* SQLiteHandler.swift */,
+				ACD820EC1FDA8FD200890CFA /* Sensor.swift */,
+				ACD820EE1FDA914700890CFA /* Reading.swift */,
 			);
 			path = zad1_sqlite;
 			sourceTree = "<group>";
@@ -123,6 +138,14 @@
 				AC1844091FD15187008F7FAD /* Info.plist */,
 			);
 			path = zad1_sqliteUITests;
+			sourceTree = "<group>";
+		};
+		ACD820E71FDA8C2100890CFA /* Frameworks */ = {
+			isa = PBXGroup;
+			children = (
+				ACD820E81FDA8C2100890CFA /* libsqlite3.tbd */,
+			);
+			name = Frameworks;
 			sourceTree = "<group>";
 		};
 /* End PBXGroup section */
@@ -260,7 +283,10 @@
 			buildActionMask = 2147483647;
 			files = (
 				AC1843EA1FD15187008F7FAD /* ViewController.swift in Sources */,
+				ACD820ED1FDA8FD200890CFA /* Sensor.swift in Sources */,
 				AC1843E81FD15187008F7FAD /* AppDelegate.swift in Sources */,
+				ACD820EF1FDA914700890CFA /* Reading.swift in Sources */,
+				ACD820EB1FDA8D9D00890CFA /* SQLiteHandler.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -416,6 +442,8 @@
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";
 				PRODUCT_BUNDLE_IDENTIFIER = "com.waclawik.zad1-sqlite";
 				PRODUCT_NAME = "$(TARGET_NAME)";
+				SWIFT_INCLUDE_PATHS = "";
+				SWIFT_OBJC_BRIDGING_HEADER = sqliteHeader.h;
 				SWIFT_VERSION = 3.0;
 			};
 			name = Debug;
@@ -428,6 +456,8 @@
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";
 				PRODUCT_BUNDLE_IDENTIFIER = "com.waclawik.zad1-sqlite";
 				PRODUCT_NAME = "$(TARGET_NAME)";
+				SWIFT_INCLUDE_PATHS = "";
+				SWIFT_OBJC_BRIDGING_HEADER = sqliteHeader.h;
 				SWIFT_VERSION = 3.0;
 			};
 			name = Release;
@@ -505,6 +535,7 @@
 				AC18440E1FD15187008F7FAD /* Release */,
 			);
 			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
 		};
 		AC18440F1FD15187008F7FAD /* Build configuration list for PBXNativeTarget "zad1_sqliteTests" */ = {
 			isa = XCConfigurationList;
@@ -513,6 +544,7 @@
 				AC1844111FD15187008F7FAD /* Release */,
 			);
 			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
 		};
 		AC1844121FD15187008F7FAD /* Build configuration list for PBXNativeTarget "zad1_sqliteUITests" */ = {
 			isa = XCConfigurationList;
@@ -521,6 +553,7 @@
 				AC1844141FD15187008F7FAD /* Release */,
 			);
 			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
 		};
 /* End XCConfigurationList section */
 	};
