@@ -15,8 +15,6 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
 
 
     func application(_ application: UIApplication, didFinishLaunchingWithOptions launchOptions: [UIApplicationLaunchOptionsKey: Any]?) -> Bool {
-        // loading db file from documents directory
-        let handle = SqLiteHandler().getConnection();
         // Override point for customization after application launch.
         return true
     }
