@@ -23,7 +23,7 @@ class SqLiteHandler {
         let docDir = NSSearchPathForDirectoriesInDomains(.documentDirectory, .userDomainMask, true)[0]
         let dbFilePath = NSURL(fileURLWithPath: docDir).appendingPathComponent("demo.db")?.path
     
-        print(dbFilePath);
+        print(dbFilePath!);
         
         if sqlite3_open(dbFilePath, &db) == SQLITE_OK {
             print("ok")
@@ -51,5 +51,33 @@ class SqLiteHandler {
 
     }
 
+    func createSensorsIfNotPresent() {
+        let getAmountOfSensorsCreated = "SELECT count(*) FROM sensors;";
+        var amountOfSensorsInDB:Int = 0;
+        var stmt: OpaquePointer? = nil
+        sqlite3_prepare_v2(getConnection(), getAmountOfSensorsCreated, -1, &stmt, nil)
+        while sqlite3_step(stmt) == SQLITE_ROW {
+            amountOfSensorsInDB = Int(sqlite3_column_int(stmt, 0))
+            print("DB contains \(amountOfSensorsInDB) sensor(s)")
+        }
+        sqlite3_finalize(stmt)
+        
+        if(amountOfSensorsInDB == 0) {
+            createSensors();
+        }
+    }
+    
+    func createSensors() {
+        let getAmountOfSensorsCreated = "INSERT INTO sensors (name, description) VALUES (?,?)";
+        var stmt: OpaquePointer? = nil
+        sqlite3_prepare_v2(getConnection(), getAmountOfSensorsCreated, -1, &stmt, nil)
+        sqlite3_bind_text(stmt, 1, "Name", -1, nil)
+        sqlite3_bind_text(stmt, 2, "DescriptionOpisETC", -1, nil)
+        if (sqlite3_step(stmt) != SQLITE_DONE) {
+            print("\nCould not step (execute) stmt.\n");
+        }
+        sqlite3_reset(stmt);
+
+    }
     
 }

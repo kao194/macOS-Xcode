@@ -10,7 +10,8 @@ import Foundation
 
 
 class Reading {
+    var id : Int = 0;
     var timestamp: Int = 0;
-    var sensor:String = "";
+    var sensorId:Int = 0;
     var value:Float = 0;
 }

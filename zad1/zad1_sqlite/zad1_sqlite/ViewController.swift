@@ -25,6 +25,7 @@ class ViewController: UIViewController {
     @IBAction func BtnOnClick(_ sender: UIButton) {
         let handler: SqLiteHandler = SqLiteHandler();
         handler.createTables();
+        handler.createSensorsIfNotPresent();
     }
 
 }
