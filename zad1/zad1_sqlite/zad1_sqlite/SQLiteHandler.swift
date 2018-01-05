@@ -62,22 +62,75 @@ class SqLiteHandler {
         }
         sqlite3_finalize(stmt)
         
-        if(amountOfSensorsInDB == 0) {
+        if(amountOfSensorsInDB) != 20 {
+            deleteSensors();
             createSensors();
         }
+        getSensors()
     }
     
     func createSensors() {
-        let getAmountOfSensorsCreated = "INSERT INTO sensors (name, description) VALUES (?,?)";
+        let getAmountOfSensorsCreated = "INSERT INTO sensors (id, name, description) VALUES (?,?,?)";
         var stmt: OpaquePointer? = nil
         sqlite3_prepare_v2(getConnection(), getAmountOfSensorsCreated, -1, &stmt, nil)
-        sqlite3_bind_text(stmt, 1, "Name", -1, nil)
-        sqlite3_bind_text(stmt, 2, "DescriptionOpisETC", -1, nil)
-        if (sqlite3_step(stmt) != SQLITE_DONE) {
-            print("\nCould not step (execute) stmt.\n");
+        for i in 1...20 {
+            sqlite3_bind_int(stmt, 1, Int32(i))
+            let name: NSString
+            if i<10 {
+                name="S0\(i)" as NSString
+            }else {
+                name="S\(i)" as NSString
+            }
+            print(name);
+            let desc:NSString = "Sensor number \(i)" as NSString;
+            //let SQLITE_TRANSIENT = unsafeBitCast(OpaquePointer(bitPattern: -1), to: sqlite3_destructor_type.self)
+            //name.cString(using: .ascii) -- nie zadzialalo (.utf8 rowniez)
+            //uzycie name.utf8String pomoze, uzycie SQLITE_TRANSIENT jako 4ty parametr ze zwyklym swiftowym String rowniez
+            sqlite3_bind_text(stmt, 2, name.utf8String, -1, nil)
+            sqlite3_bind_text(stmt, 3, desc.utf8String, -1, nil)
+            if (sqlite3_step(stmt) != SQLITE_DONE) {
+                print("\nCould not step (execute) stmt.\n");
+            }
+            sqlite3_reset(stmt);
         }
-        sqlite3_reset(stmt);
+        print("Created sensors")
+    }
+    
+    func createSensorsWithoutBinding() {
+        for i in 1...20 {
+            let name: String
+            if i<10 {
+                name="S0\(i)"
+            }else {
+                name="S\(i)"
+            }
+            print(name);
+            let desc: String = "Sensor number \(i)"
+            let insertSQL = "INSERT INTO sensors (id, name, description) VALUES (\(i),'\(name)','\(desc)');"
+            sqlite3_exec(getConnection(), insertSQL, nil, nil, nil)
+        }
 
     }
     
+    func deleteSensors() {
+        let createReadingsTableStatement = "DELETE FROM sensors;"
+        if sqlite3_exec(getConnection(), createReadingsTableStatement, nil, nil, nil) == SQLITE_OK {
+            print("Sensors deleted")
+        } else {
+            print("fail")
+        }
+    }
+    
+    func getSensors() {
+        let getSensorsQuery = "SELECT * FROM sensors;";
+        var stmt: OpaquePointer? = nil
+        sqlite3_prepare_v2(getConnection(), getSensorsQuery, -1, &stmt, nil)
+        while sqlite3_step(stmt) == SQLITE_ROW {
+            let id = Int(sqlite3_column_int(stmt, 0))
+            let name = String(cString: sqlite3_column_text(stmt, 1))
+            let description = String(cString: sqlite3_column_text(stmt, 2))
+            print("Sensor: id: \(id), name: \(name), desc: \(description).")
+        }
+        sqlite3_finalize(stmt)
+    }
 }

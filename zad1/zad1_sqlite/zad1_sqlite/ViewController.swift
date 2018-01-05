@@ -28,5 +28,9 @@ class ViewController: UIViewController {
         handler.createSensorsIfNotPresent();
     }
 
+    @IBAction func ClearBtnOnClick(_ sender: UIButton) {
+        let handler: SqLiteHandler = SqLiteHandler();
+        handler.deleteSensors();
+    }
 }
 
