@@ -66,7 +66,6 @@ class SqLiteHandler {
             deleteSensors();
             createSensors();
         }
-        getSensors()
     }
     
     func createSensors() {
@@ -121,7 +120,8 @@ class SqLiteHandler {
         }
     }
     
-    func getSensors() {
+    func getSensors() -> Array<Sensor> {
+        var sensorsList: Array<Sensor> = Array()
         let getSensorsQuery = "SELECT * FROM sensors;";
         var stmt: OpaquePointer? = nil
         sqlite3_prepare_v2(getConnection(), getSensorsQuery, -1, &stmt, nil)
@@ -130,7 +130,9 @@ class SqLiteHandler {
             let name = String(cString: sqlite3_column_text(stmt, 1))
             let description = String(cString: sqlite3_column_text(stmt, 2))
             print("Sensor: id: \(id), name: \(name), desc: \(description).")
+            sensorsList.append(Sensor(id: id, name: name, description: description))
         }
         sqlite3_finalize(stmt)
+        return sensorsList
     }
 }
