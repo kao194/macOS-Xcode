@@ -12,6 +12,7 @@ class ViewController: UIViewController {
 
     @IBOutlet weak var butn: UIButton!
     
+    @IBOutlet weak var exp1butn: UIButton!
     override func viewDidLoad() {
         super.viewDidLoad()
         // Do any additional setup after loading the view, typically from a nib.
@@ -31,6 +32,11 @@ class ViewController: UIViewController {
     @IBAction func ClearBtnOnClick(_ sender: UIButton) {
         let handler: SqLiteHandler = SqLiteHandler();
         handler.deleteSensors();
+    }
+    
+    @IBAction func ExecuteExp1OnClick(_ sender: Any) {
+        let handler: SqLiteHandler = SqLiteHandler();
+        handler.generateReadings(amount: 20)
     }
 }
 

@@ -1,8 +1,8 @@
 //
-//  SensorViewController.swift
+//  ReadingViewController.swift
 //  zad1_sqlite
 //
-//  Created by Użytkownik Gość on 12.01.2018.
+//  Created by Użytkownik Gość on 19.01.2018.
 //  Copyright © 2018 Waclawik. All rights reserved.
 //
 
@@ -10,17 +10,17 @@ import Foundation
 
 import UIKit
 
-class SensorViewController: UITableViewController {
+class ReadingViewController: UITableViewController {
     
-    var sensorsList:Array<Sensor> = Array<Sensor>();
-        
+    var readingList:Array<Reading> = Array<Reading>();
+    
     override func viewDidLoad() {
         super.viewDidLoad()
         // Do any additional setup after loading the view, typically from a nib.
         let handler: SqLiteHandler = SqLiteHandler();
         handler.createTables();
         handler.createSensorsIfNotPresent()
-        sensorsList.append(contentsOf: handler.getSensors());
+        readingList.append(contentsOf: handler.getReadings());
     }
     
     override func didReceiveMemoryWarning() {
@@ -33,18 +33,17 @@ class SensorViewController: UITableViewController {
     }
     
     override func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
-        return sensorsList.count
+        return readingList.count
     }
     
     override func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
-        let cell = tableView.dequeueReusableCell(withIdentifier: "SensorCell", for: indexPath)
-        
-        cell.textLabel?.text = sensorsList[indexPath.row].name
-        cell.detailTextLabel?.text = sensorsList[indexPath.row].description
+        let cell = tableView.dequeueReusableCell(withIdentifier: "ReadingValueCell", for: indexPath)
+        print(readingList[indexPath.row].value.description)
+        cell.textLabel?.text = readingList[indexPath.row].value.description
+        cell.detailTextLabel?.text = "\(readingList[indexPath.row].sensorId) - \(readingList[indexPath.row].timestamp)"
         
         
         return cell
     }
     
 }
-

@@ -15,6 +15,7 @@
 		AC1843FD1FD15187008F7FAD /* zad1_sqliteTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = AC1843FC1FD15187008F7FAD /* zad1_sqliteTests.swift */; };
 		AC1844081FD15187008F7FAD /* zad1_sqliteUITests.swift in Sources */ = {isa = PBXBuildFile; fileRef = AC1844071FD15187008F7FAD /* zad1_sqliteUITests.swift */; };
 		AC1C99462008B01F00276CAE /* SensorViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = AC1C99452008B01F00276CAE /* SensorViewController.swift */; };
+		AC57A8572011F53C00AB1DBC /* ReadingViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = AC57A8562011F53C00AB1DBC /* ReadingViewController.swift */; };
 		ACD820E91FDA8C2100890CFA /* libsqlite3.tbd in Frameworks */ = {isa = PBXBuildFile; fileRef = ACD820E81FDA8C2100890CFA /* libsqlite3.tbd */; };
 		ACD820EB1FDA8D9D00890CFA /* SQLiteHandler.swift in Sources */ = {isa = PBXBuildFile; fileRef = ACD820EA1FDA8D9D00890CFA /* SQLiteHandler.swift */; };
 		ACD820ED1FDA8FD200890CFA /* Sensor.swift in Sources */ = {isa = PBXBuildFile; fileRef = ACD820EC1FDA8FD200890CFA /* Sensor.swift */; };
@@ -53,6 +54,7 @@
 		AC1844071FD15187008F7FAD /* zad1_sqliteUITests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = zad1_sqliteUITests.swift; sourceTree = "<group>"; };
 		AC1844091FD15187008F7FAD /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 		AC1C99452008B01F00276CAE /* SensorViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = SensorViewController.swift; sourceTree = "<group>"; };
+		AC57A8562011F53C00AB1DBC /* ReadingViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ReadingViewController.swift; sourceTree = "<group>"; };
 		ACD820E61FDA8A6E00890CFA /* sqliteHeader.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = sqliteHeader.h; sourceTree = "<group>"; };
 		ACD820E81FDA8C2100890CFA /* libsqlite3.tbd */ = {isa = PBXFileReference; lastKnownFileType = "sourcecode.text-based-dylib-definition"; name = libsqlite3.tbd; path = usr/lib/libsqlite3.tbd; sourceTree = SDKROOT; };
 		ACD820EA1FDA8D9D00890CFA /* SQLiteHandler.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = SQLiteHandler.swift; sourceTree = "<group>"; };
@@ -121,6 +123,7 @@
 				ACD820EC1FDA8FD200890CFA /* Sensor.swift */,
 				ACD820EE1FDA914700890CFA /* Reading.swift */,
 				AC1C99452008B01F00276CAE /* SensorViewController.swift */,
+				AC57A8562011F53C00AB1DBC /* ReadingViewController.swift */,
 			);
 			path = zad1_sqlite;
 			sourceTree = "<group>";
@@ -291,6 +294,7 @@
 				AC1843E81FD15187008F7FAD /* AppDelegate.swift in Sources */,
 				ACD820EF1FDA914700890CFA /* Reading.swift in Sources */,
 				ACD820EB1FDA8D9D00890CFA /* SQLiteHandler.swift in Sources */,
+				AC57A8572011F53C00AB1DBC /* ReadingViewController.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};

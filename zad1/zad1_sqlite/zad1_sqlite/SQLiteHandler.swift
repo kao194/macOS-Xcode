@@ -135,4 +135,58 @@ class SqLiteHandler {
         sqlite3_finalize(stmt)
         return sensorsList
     }
+    
+    func generateReadings(amount: Int) {
+        let insertGeneratedReadingQuery = "INSERT INTO readings (timestamp, sensor_id, value) VALUES (?,?,?)";
+        
+        var stmt: OpaquePointer? = nil
+        sqlite3_prepare_v2(getConnection(), insertGeneratedReadingQuery, -1, &stmt, nil)
+        for i in 1...amount {
+            
+            let sensor = arc4random_uniform(20) + 1
+            let sensorId:Int = Int(sensor);
+            let value:Float = randomFloat(min: 0, max: 100)
+            
+            let date: Date = Date();
+            // random value of time in the year
+            let randomSecondInTheLastYear = arc4random_uniform(31556926) + 1;
+            
+            var secondsSinceTheBeginning = date.timeIntervalSince1970
+            secondsSinceTheBeginning.subtract(Double(randomSecondInTheLastYear));
+            
+            let timestamp = Int64(secondsSinceTheBeginning*1000)
+            
+            sqlite3_bind_int64(stmt, 1, timestamp)
+            sqlite3_bind_int(stmt, 2, Int32(sensorId))
+            sqlite3_bind_double(stmt, 3, Double(value))
+            
+            if (sqlite3_step(stmt) != SQLITE_DONE) {
+                print("\nCould not step (execute) stmt. Did not add reading\n");
+            }
+            sqlite3_reset(stmt);
+            let reading = Reading(id: i, timestamp: timestamp, sensorId: sensorId, value: value);
+            print("Reading id: \(reading.id); timestamp: \(reading.timestamp); sensor: \(reading.sensorId); value: \(reading.value)")
+        }
+        print("Created Readings")
+    }
+    
+    func getReadings() -> Array<Reading> {
+        var readingsList: Array<Reading> = Array()
+        let getReadingsQuery = "SELECT * FROM readings;";
+        var stmt: OpaquePointer? = nil
+        sqlite3_prepare_v2(getConnection(), getReadingsQuery, -1, &stmt, nil)
+        while sqlite3_step(stmt) == SQLITE_ROW {
+            let id = Int(sqlite3_column_int(stmt, 0))
+            let timestamp = Int64(sqlite3_column_int64(stmt, 1))
+            let sensorId = Int(sqlite3_column_int(stmt, 2))
+            let value = Float(sqlite3_column_double(stmt, 3))
+            readingsList.append(Reading(id: id, timestamp: timestamp, sensorId: sensorId, value: value))
+        }
+        sqlite3_finalize(stmt)
+        return readingsList
+    }
+    
+    func randomFloat(min: Float, max: Float) -> Float {
+        return Float(Float(arc4random()) / Float(UINT32_MAX)) * (max - min) + min
+    }
 }
