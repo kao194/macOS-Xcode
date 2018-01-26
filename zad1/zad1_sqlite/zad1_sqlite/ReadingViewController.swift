@@ -23,6 +23,14 @@ class ReadingViewController: UITableViewController {
         readingList.append(contentsOf: handler.getReadings());
     }
     
+    override func viewDidAppear(_ animated: Bool) {
+        super.viewDidAppear(animated)
+        let handler: SqLiteHandler = SqLiteHandler();
+        readingList.removeAll()
+        readingList.append(contentsOf: handler.getReadings());
+        
+    }
+    
     override func didReceiveMemoryWarning() {
         super.didReceiveMemoryWarning()
         // Dispose of any resources that can be recreated.
@@ -38,7 +46,7 @@ class ReadingViewController: UITableViewController {
     
     override func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
         let cell = tableView.dequeueReusableCell(withIdentifier: "ReadingValueCell", for: indexPath)
-        print(readingList[indexPath.row].value.description)
+        
         cell.textLabel?.text = readingList[indexPath.row].value.description
         cell.detailTextLabel?.text = "\(readingList[indexPath.row].sensorId) - \(readingList[indexPath.row].timestamp)"
         

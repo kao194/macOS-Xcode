@@ -12,6 +12,9 @@ class ViewController: UIViewController {
 
     @IBOutlet weak var butn: UIButton!
     @IBOutlet weak var exp2butn: UIButton!
+    @IBOutlet weak var entriesTextField: UITextField!
+    @IBOutlet weak var generateButton: UIButton!
+    @IBOutlet weak var clearReadingsButton: UIButton!
     
     @IBOutlet weak var exp1butn: UIButton!
     override func viewDidLoad() {
@@ -29,10 +32,24 @@ class ViewController: UIViewController {
         handler.createTables();
         handler.createSensorsIfNotPresent();
     }
+    
+    @IBAction func ClearReadingsOnClick(_ sender: Any) {
+        let handler: SqLiteHandler = SqLiteHandler();
+        handler.deleteReadings();
+    }
 
     @IBAction func ClearBtnOnClick(_ sender: UIButton) {
         let handler: SqLiteHandler = SqLiteHandler();
         handler.deleteSensors();
+    }
+    
+    @IBAction func GenerateCustomAmountOfEntries(_ sender: Any) {
+        let amount = Int(entriesTextField.text!)
+        if amount! <= 0 { return };
+        let handler: SqLiteHandler = SqLiteHandler();
+        
+        handler.generateReadings(amount: amount!)
+        print("Generated \(amount) entries.")
     }
     
     @IBAction func ExecuteExp1OnClick(_ sender: Any) {

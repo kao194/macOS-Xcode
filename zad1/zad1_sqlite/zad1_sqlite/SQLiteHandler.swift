@@ -137,7 +137,7 @@ class SqLiteHandler {
     }
     
     func generateReadings(amount: Int) {
-        sqlite3_exec(getConnection(), "TRUNCATE TABLE readings;", nil, nil, nil)
+        deleteReadings()
         sqlite3_exec(getConnection(), "BEGIN TRANSACTION;", nil, nil, nil)
         
         let insertGeneratedReadingQuery = "INSERT INTO readings (timestamp, sensor_id, value) VALUES (?,?,?)";
@@ -188,6 +188,10 @@ class SqLiteHandler {
     
     func findAverageReadingValuePerSensor() {
         sqlite3_exec(getConnection(), "SELECT avg(value) FROM readings GROUP BY sensor_id;", nil, nil, nil)
+    }
+    
+    func deleteReadings() {
+        sqlite3_exec(getConnection(), "DELETE FROM readings;", nil, nil, nil)
     }
     
     func getReadings() -> Array<Reading> {
