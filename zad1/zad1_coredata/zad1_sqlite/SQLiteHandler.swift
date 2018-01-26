@@ -130,7 +130,7 @@ class SqLiteHandler {
             let name = String(cString: sqlite3_column_text(stmt, 1))
             let description = String(cString: sqlite3_column_text(stmt, 2))
             print("Sensor: id: \(id), name: \(name), desc: \(description).")
-            sensorsList.append(Sensor(id: id, name: name, description: description))
+            //sensorsList.append(Sensor(id: id, name: name, description: description))
         }
         sqlite3_finalize(stmt)
         return sensorsList
@@ -167,8 +167,8 @@ class SqLiteHandler {
                 print("\nCould not step (execute) stmt. Did not add reading\n");
             }
             sqlite3_reset(stmt);
-            let reading = Reading(id: i, timestamp: timestamp, sensorId: sensorId, value: value);
-            print("Reading id: \(reading.id); timestamp: \(reading.timestamp); sensor: \(reading.sensorId); value: \(reading.value)")
+            //let reading = Reading(id: i, timestamp: timestamp, sensorId: sensorId, value: value);
+            //print("Reading id: \(reading.id); timestamp: \(reading.timestamp); sensor: \(reading.sensorId); value: \(reading.value)")
         }
         sqlite3_exec(getConnection(), "COMMIT;", nil, nil, nil)
         print("Created Readings")
@@ -204,7 +204,7 @@ class SqLiteHandler {
             let timestamp = Int64(sqlite3_column_int64(stmt, 1))
             let sensorId = Int(sqlite3_column_int(stmt, 2))
             let value = Float(sqlite3_column_double(stmt, 3))
-            readingsList.append(Reading(id: id, timestamp: timestamp, sensorId: sensorId, value: value))
+            //readingsList.append(Reading(id: id, timestamp: timestamp, sensorId: sensorId, value: value))
         }
         sqlite3_finalize(stmt)
         return readingsList
