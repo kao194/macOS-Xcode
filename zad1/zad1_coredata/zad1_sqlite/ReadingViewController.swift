@@ -20,18 +20,20 @@ class ReadingViewController: UITableViewController {
     override func viewDidLoad() {
         super.viewDidLoad()
         // Do any additional setup after loading the view, typically from a nib.
-        let handler: SqLiteHandler = SqLiteHandler();
+        /*let handler: SqLiteHandler = SqLiteHandler();
         handler.createTables();
         handler.createSensorsIfNotPresent()
         readingList.append(contentsOf: handler.getReadings());
+ */
     }
     
     override func viewDidAppear(_ animated: Bool) {
         super.viewDidAppear(animated)
-        let handler: SqLiteHandler = SqLiteHandler();
+       /* let handler: SqLiteHandler = SqLiteHandler();
         readingList.removeAll()
         readingList.append(contentsOf: handler.getReadings());
         TableViewDisplayingOutlet.reloadData()
+ */
     }
     
     override func didReceiveMemoryWarning() {

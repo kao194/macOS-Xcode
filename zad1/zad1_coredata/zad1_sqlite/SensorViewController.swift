@@ -17,10 +17,11 @@ class SensorViewController: UITableViewController {
     override func viewDidLoad() {
         super.viewDidLoad()
         // Do any additional setup after loading the view, typically from a nib.
-        let handler: SqLiteHandler = SqLiteHandler();
+        /*let handler: SqLiteHandler = SqLiteHandler();
         handler.createTables();
         handler.createSensorsIfNotPresent()
         sensorsList.append(contentsOf: handler.getSensors());
+ */
     }
     
     override func didReceiveMemoryWarning() {
