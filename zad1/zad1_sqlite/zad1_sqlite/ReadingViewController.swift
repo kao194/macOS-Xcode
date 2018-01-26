@@ -14,6 +14,9 @@ class ReadingViewController: UITableViewController {
     
     var readingList:Array<Reading> = Array<Reading>();
     
+    @IBOutlet var TableViewDisplayingOutlet: UITableView!
+    
+    
     override func viewDidLoad() {
         super.viewDidLoad()
         // Do any additional setup after loading the view, typically from a nib.
@@ -28,7 +31,7 @@ class ReadingViewController: UITableViewController {
         let handler: SqLiteHandler = SqLiteHandler();
         readingList.removeAll()
         readingList.append(contentsOf: handler.getReadings());
-        
+        TableViewDisplayingOutlet.reloadData()
     }
     
     override func didReceiveMemoryWarning() {
