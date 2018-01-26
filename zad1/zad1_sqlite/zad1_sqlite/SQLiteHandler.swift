@@ -137,6 +137,9 @@ class SqLiteHandler {
     }
     
     func generateReadings(amount: Int) {
+        sqlite3_exec(getConnection(), "TRUNCATE TABLE readings;", nil, nil, nil)
+        sqlite3_exec(getConnection(), "BEGIN TRANSACTION;", nil, nil, nil)
+        
         let insertGeneratedReadingQuery = "INSERT INTO readings (timestamp, sensor_id, value) VALUES (?,?,?)";
         
         var stmt: OpaquePointer? = nil
@@ -167,7 +170,24 @@ class SqLiteHandler {
             let reading = Reading(id: i, timestamp: timestamp, sensorId: sensorId, value: value);
             print("Reading id: \(reading.id); timestamp: \(reading.timestamp); sensor: \(reading.sensorId); value: \(reading.value)")
         }
+        sqlite3_exec(getConnection(), "COMMIT;", nil, nil, nil)
         print("Created Readings")
+    }
+    
+    func findEarliestReading() {
+        sqlite3_exec(getConnection(), "SELECT min(timestamp) FROM readings;", nil, nil, nil)
+    }
+    
+    func findLatestReading() {
+        sqlite3_exec(getConnection(), "SELECT max(timestamp) FROM readings;", nil, nil, nil)
+    }
+    
+    func findAverageReadingValue() {
+        sqlite3_exec(getConnection(), "SELECT avg(value) FROM readings;", nil, nil, nil)
+    }
+    
+    func findAverageReadingValuePerSensor() {
+        sqlite3_exec(getConnection(), "SELECT avg(value) FROM readings GROUP BY sensor_id;", nil, nil, nil)
     }
     
     func getReadings() -> Array<Reading> {

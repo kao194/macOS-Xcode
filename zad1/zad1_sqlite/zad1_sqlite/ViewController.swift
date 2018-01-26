@@ -11,6 +11,7 @@ import UIKit
 class ViewController: UIViewController {
 
     @IBOutlet weak var butn: UIButton!
+    @IBOutlet weak var exp2butn: UIButton!
     
     @IBOutlet weak var exp1butn: UIButton!
     override func viewDidLoad() {
@@ -36,7 +37,59 @@ class ViewController: UIViewController {
     
     @IBAction func ExecuteExp1OnClick(_ sender: Any) {
         let handler: SqLiteHandler = SqLiteHandler();
-        handler.generateReadings(amount: 20)
+        // first experiment: 1000 readings
+        
+        let startTime = NSDate()
+        
+        handler.generateReadings(amount: 1000)
+        
+        let finishTime = NSDate()
+        let measuredTime = finishTime.timeIntervalSince(startTime as Date)
+        print(measuredTime)
+        
+        let startEarliestTime = Date()
+        handler.findEarliestReading()
+        let startLatestDate = Date()
+        handler.findLatestReading()
+        let startAverageReadingDate = Date()
+        handler.findAverageReadingValue()
+        let startAverageReadingGroupedDate = Date()
+        handler.findAverageReadingValuePerSensor()
+        let stopAverageReadingGroupedDate = Date()
+        
+        print("Finding earliest measurement time: "+startLatestDate.timeIntervalSince(startEarliestTime).description)
+        print("Finding latest measurement time: "+startAverageReadingDate.timeIntervalSince(startLatestDate).description)
+        print("Finding average overall time: "+startAverageReadingGroupedDate.timeIntervalSince(startAverageReadingDate).description)
+        print("Finding average per group time: "+stopAverageReadingGroupedDate.timeIntervalSince(startAverageReadingGroupedDate).description)
+        print("Done - 1 000 entries experiment")
+    }
+    @IBAction func ExecuteExp2OnClick(_ sender: Any) {
+        let handler: SqLiteHandler = SqLiteHandler();
+        // first experiment: 1000000 readings
+        
+        let startTime = Date()
+        
+        handler.generateReadings(amount: 1000000)
+        
+        let finishTime = Date()
+        let measuredTime = finishTime.timeIntervalSince(startTime)
+        print(measuredTime)
+        
+        let startEarliestTime = Date()
+        handler.findEarliestReading()
+        let startLatestDate = Date()
+        handler.findLatestReading()
+        let startAverageReadingDate = Date()
+        handler.findAverageReadingValue()
+        let startAverageReadingGroupedDate = Date()
+        handler.findAverageReadingValuePerSensor()
+        let stopAverageReadingGroupedDate = Date()
+        
+        print("Finding earliest measurement time: "+startLatestDate.timeIntervalSince(startEarliestTime).description)
+        print("Finding latest measurement time: "+startAverageReadingDate.timeIntervalSince(startLatestDate).description)
+        print("Finding average overall time: "+startAverageReadingGroupedDate.timeIntervalSince(startAverageReadingDate).description)
+        print("Finding average per group time: "+stopAverageReadingGroupedDate.timeIntervalSince(startAverageReadingGroupedDate).description)
+        print("Done - 1 000 000 entries experiment")
     }
 }
 
