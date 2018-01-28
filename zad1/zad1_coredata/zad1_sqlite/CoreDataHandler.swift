@@ -148,6 +148,17 @@ class CoreDataHandler {
     
     func deleteReadings() {
         //
+        let deleteFetch = NSFetchRequest<NSFetchRequestResult>(entityName: "Reading")
+        let deleteRequest = NSBatchDeleteRequest(fetchRequest: deleteFetch)
+        do
+        {
+            try moc.execute(deleteRequest)
+            try moc.save()
+        }
+        catch
+        {
+            print ("There was an error")
+        }
     }
     
     func getReadings() -> Array<Reading> {

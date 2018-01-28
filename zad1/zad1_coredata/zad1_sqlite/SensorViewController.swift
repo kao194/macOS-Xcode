@@ -48,7 +48,7 @@ class SensorViewController: UITableViewController {
         let cell = tableView.dequeueReusableCell(withIdentifier: "SensorCell", for: indexPath)
         
         cell.textLabel?.text = sensorsList[indexPath.row].name
-        cell.detailTextLabel?.text = sensorsList[indexPath.row].description
+        cell.detailTextLabel?.text = sensorsList[indexPath.row].sensorDescription!
         
         
         return cell

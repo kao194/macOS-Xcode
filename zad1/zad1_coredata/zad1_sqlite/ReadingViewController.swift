@@ -57,7 +57,7 @@ class ReadingViewController: UITableViewController {
         let cell = tableView.dequeueReusableCell(withIdentifier: "ReadingValueCell", for: indexPath)
         
         cell.textLabel?.text = readingList[indexPath.row].value.description
-        cell.detailTextLabel?.text = "\(String(describing: readingList[indexPath.row].sensor?.name)) - \(readingList[indexPath.row].timestamp)"
+        cell.detailTextLabel?.text = "\(String(describing: readingList[indexPath.row].sensor!.name!)) - \(readingList[indexPath.row].timestamp)"
         
         
         return cell
