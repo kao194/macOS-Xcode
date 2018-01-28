@@ -48,25 +48,24 @@ class CoreDataHandler {
         print("Created sensors")
     }
 
-    func getSensors() -> Array<NSManagedObject> {
+    func getSensors() -> Array<Sensor> {
         let fr = NSFetchRequest<NSManagedObject>(entityName: "Sensor")
         
         
         let sensors: [NSManagedObject]? = try? moc.fetch(fr)
-        var sernik:Array<NSManagedObject> = Array<NSManagedObject>(sensors!)
+        let sernik:Array<Sensor> = sensors! as! Array<Sensor>
         return sernik
     }
     
     func generateReadings(amount: Int) {
         deleteReadings()
-        sqlite3_exec(nil, "BEGIN TRANSACTION;", nil, nil, nil)
         
-        let insertGeneratedReadingQuery = "INSERT INTO readings (timestamp, sensor_id, value) VALUES (?,?,?)";
+        let sensors = getSensors()
         
-        var stmt: OpaquePointer? = nil
-        sqlite3_prepare_v2(nil, insertGeneratedReadingQuery, -1, &stmt, nil)
+        let entity = NSEntityDescription.entity(forEntityName: "Reading", in: moc)
+        print("About to generate \(amount) readings")
         for i in 1...amount {
-            
+            print("iteration: \(i)")
             let sensor = arc4random_uniform(20) + 1
             let sensorId:Int = Int(sensor);
             let value:Float = randomFloat(min: 0, max: 100)
@@ -80,55 +79,83 @@ class CoreDataHandler {
             
             let timestamp = Int64(secondsSinceTheBeginning*1000)
             
-            sqlite3_bind_int64(stmt, 1, timestamp)
-            sqlite3_bind_int(stmt, 2, Int32(sensorId))
-            sqlite3_bind_double(stmt, 3, Double(value))
+            let reading = NSManagedObject(entity: entity!, insertInto: moc) as! Reading
+            reading.setValue(i, forKey:"id");
+            reading.setValue(timestamp, forKey:"timestamp");
+            reading.setValue(value, forKey:"value");
+            var sensorToConnect: Sensor? = nil;
             
-            if (sqlite3_step(stmt) != SQLITE_DONE) {
-                print("\nCould not step (execute) stmt. Did not add reading\n");
+            for j in 0...19 {
+                if sensors[j].id == Int32(sensorId) {
+                    sensorToConnect = sensors[j]
+                }
             }
-            sqlite3_reset(stmt);
-            //let reading = Reading(id: i, timestamp: timestamp, sensorId: sensorId, value: value);
-            //print("Reading id: \(reading.id); timestamp: \(reading.timestamp); sensor: \(reading.sensorId); value: \(reading.value)")
+            reading.setValue(sensorToConnect, forKey: "sensor")
+            
         }
-        sqlite3_exec(nil, "COMMIT;", nil, nil, nil)
+        try? moc.save()
         print("Created Readings")
     }
     
     func findEarliestReading() {
-        sqlite3_exec(nil, "SELECT min(timestamp) FROM readings;", nil, nil, nil)
+        
+        let sortDescriptor = NSSortDescriptor(key: "timestamp", ascending: true)
+        let fr = NSFetchRequest<Reading>(entityName: "Reading")
+        fr.sortDescriptors=[sortDescriptor]
+        fr.fetchLimit = 1
+        
+        let reading: [Reading]? = try? moc.fetch(fr)
+        let sernik:Array<Reading> = reading! 
+        print(sernik.count)
     }
     
     func findLatestReading() {
-        sqlite3_exec(nil, "SELECT max(timestamp) FROM readings;", nil, nil, nil)
+        let sortDescriptor = NSSortDescriptor(key: "timestamp", ascending: false)
+        let fr = NSFetchRequest<Reading>(entityName: "Reading")
+        fr.sortDescriptors=[sortDescriptor]
+        fr.fetchLimit = 1
+        
+        let reading: [Reading]? = try? moc.fetch(fr)
+        let sernik:Array<Reading> = reading!
+        print(sernik.count)
     }
     
     func findAverageReadingValue() {
-        sqlite3_exec(nil, "SELECT avg(value) FROM readings;", nil, nil, nil)
+        let fr = NSFetchRequest<NSDictionary>(entityName: "Reading")
+        
+        fr.resultType = .dictionaryResultType
+        let ed = NSExpressionDescription()
+        ed.name = "Average"
+        ed.expression = NSExpression(format: "@avg.value")
+        ed.expressionResultType = .floatAttributeType
+        fr.propertiesToFetch = [ed]
+        try? moc.fetch(fr)[0]
+        
     }
     
     func findAverageReadingValuePerSensor() {
-        sqlite3_exec(nil, "SELECT avg(value) FROM readings GROUP BY sensor_id;", nil, nil, nil)
+        let fr = NSFetchRequest<NSDictionary>(entityName: "Reading")
+        
+        fr.resultType = .dictionaryResultType
+        let ed = NSExpressionDescription()
+        ed.name = "Average"
+        ed.expression = NSExpression(format: "@avg.value")
+        ed.expressionResultType = .floatAttributeType
+        fr.propertiesToFetch = [ed]
+        fr.propertiesToGroupBy=["sensor"]
+        try? moc.fetch(fr)[0]
     }
     
     func deleteReadings() {
-        sqlite3_exec(nil, "DELETE FROM readings;", nil, nil, nil)
+        //
     }
     
     func getReadings() -> Array<Reading> {
-        var readingsList: Array<Reading> = Array()
-        let getReadingsQuery = "SELECT * FROM readings;";
-        var stmt: OpaquePointer? = nil
-        sqlite3_prepare_v2(nil, getReadingsQuery, -1, &stmt, nil)
-        while sqlite3_step(stmt) == SQLITE_ROW {
-            let id = Int(sqlite3_column_int(stmt, 0))
-            let timestamp = Int64(sqlite3_column_int64(stmt, 1))
-            let sensorId = Int(sqlite3_column_int(stmt, 2))
-            let value = Float(sqlite3_column_double(stmt, 3))
-            //readingsList.append(Reading(id: id, timestamp: timestamp, sensorId: sensorId, value: value))
-        }
-        sqlite3_finalize(stmt)
-        return readingsList
+        let fr = NSFetchRequest<Reading>(entityName: "Reading")
+        
+        let readings: [Reading]? = try? moc.fetch(fr)
+        let sernik:Array<Reading> = readings!
+        return sernik
     }
     
     func randomFloat(min: Float, max: Float) -> Float {

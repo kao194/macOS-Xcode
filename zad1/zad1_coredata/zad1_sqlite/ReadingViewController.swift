@@ -7,7 +7,7 @@
 //
 
 import Foundation
-
+import CoreData
 import UIKit
 
 class ReadingViewController: UITableViewController {
@@ -16,24 +16,28 @@ class ReadingViewController: UITableViewController {
     
     @IBOutlet var TableViewDisplayingOutlet: UITableView!
     
+    func getMOC()-> NSManagedObjectContext? {
+        guard let ad=UIApplication.shared.delegate as? AppDelegate else {
+            return nil
+        }
+        let moc = ad.persistentContainer.viewContext
+        return moc
+    }
     
     override func viewDidLoad() {
         super.viewDidLoad()
         // Do any additional setup after loading the view, typically from a nib.
-        /*let handler: SqLiteHandler = SqLiteHandler();
-        handler.createTables();
+        let handler: CoreDataHandler = CoreDataHandler(moc: getMOC()!);
         handler.createSensorsIfNotPresent()
         readingList.append(contentsOf: handler.getReadings());
- */
     }
     
     override func viewDidAppear(_ animated: Bool) {
         super.viewDidAppear(animated)
-       /* let handler: SqLiteHandler = SqLiteHandler();
+        let handler: CoreDataHandler = CoreDataHandler(moc: getMOC()!);
         readingList.removeAll()
         readingList.append(contentsOf: handler.getReadings());
         TableViewDisplayingOutlet.reloadData()
- */
     }
     
     override func didReceiveMemoryWarning() {
@@ -53,7 +57,7 @@ class ReadingViewController: UITableViewController {
         let cell = tableView.dequeueReusableCell(withIdentifier: "ReadingValueCell", for: indexPath)
         
         cell.textLabel?.text = readingList[indexPath.row].value.description
-        //cell.detailTextLabel?.text = "\(readingList[indexPath.row].sensorId) - \(readingList[indexPath.row].timestamp)"
+        cell.detailTextLabel?.text = "\(String(describing: readingList[indexPath.row].sensor?.name)) - \(readingList[indexPath.row].timestamp)"
         
         
         return cell

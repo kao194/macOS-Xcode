@@ -24,7 +24,7 @@ class ViewController: UIViewController {
         // Do any additional setup after loading the view, typically from a nib.
     }
 
-    func getMOC()-> Any? {
+    func getMOC()-> NSManagedObjectContext? {
         guard let ad=UIApplication.shared.delegate as? AppDelegate else {
             return nil
         }
@@ -38,10 +38,7 @@ class ViewController: UIViewController {
     }
 
     @IBAction func BtnOnClick(_ sender: UIButton) {
-    //    let handler: SqLiteHandler = SqLiteHandler();
-     //   handler.createTables();
-      //  handler.createSensorsIfNotPresent();
-        let handler: CoreDataHandler = CoreDataHandler(moc: getMOC() as! NSManagedObjectContext)
+        let handler: CoreDataHandler = CoreDataHandler(moc: getMOC()!)
         handler.createSensorsIfNotPresent()
     }
     
@@ -58,14 +55,15 @@ class ViewController: UIViewController {
     @IBAction func GenerateCustomAmountOfEntries(_ sender: Any) {
         let amount = Int(entriesTextField.text!)
         if amount! <= 0 { return };
-        //let handler: SqLiteHandler = SqLiteHandler();
+
+        let handler: CoreDataHandler = CoreDataHandler(moc: getMOC()!)
+        handler.generateReadings(amount: amount!)
         
-       // handler.generateReadings(amount: amount!)
-       // print("Generated \(amount) entries.")
+       print("Generated \(amount!) entries.")
     }
     
     @IBAction func ExecuteExp1OnClick(_ sender: Any) {
-       /* let handler: SqLiteHandler = SqLiteHandler();
+        let handler: CoreDataHandler = CoreDataHandler(moc: getMOC()!);
         // first experiment: 1000 readings
         
         let startTime = NSDate()
@@ -91,11 +89,10 @@ class ViewController: UIViewController {
         print("Finding average overall time: "+startAverageReadingGroupedDate.timeIntervalSince(startAverageReadingDate).description)
         print("Finding average per group time: "+stopAverageReadingGroupedDate.timeIntervalSince(startAverageReadingGroupedDate).description)
         print("Done - 1 000 entries experiment")
- */
+ 
     }
     @IBAction func ExecuteExp2OnClick(_ sender: Any) {
-        /*
-        let handler: SqLiteHandler = SqLiteHandler();
+        let handler: CoreDataHandler = CoreDataHandler(moc: getMOC()!);
         // first experiment: 1000000 readings
         
         let startTime = Date()
@@ -121,7 +118,7 @@ class ViewController: UIViewController {
         print("Finding average overall time: "+startAverageReadingGroupedDate.timeIntervalSince(startAverageReadingDate).description)
         print("Finding average per group time: "+stopAverageReadingGroupedDate.timeIntervalSince(startAverageReadingGroupedDate).description)
         print("Done - 1 000 000 entries experiment")
- */
+
     }
 }
 

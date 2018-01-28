@@ -7,21 +7,28 @@
 //
 
 import Foundation
-
+import CoreData
 import UIKit
 
 class SensorViewController: UITableViewController {
     
     var sensorsList:Array<Sensor> = Array<Sensor>();
-        
+    
+    func getMOC()-> NSManagedObjectContext? {
+        guard let ad=UIApplication.shared.delegate as? AppDelegate else {
+            return nil
+        }
+        let moc = ad.persistentContainer.viewContext
+        return moc
+    }
+    
     override func viewDidLoad() {
         super.viewDidLoad()
         // Do any additional setup after loading the view, typically from a nib.
-        /*let handler: SqLiteHandler = SqLiteHandler();
-        handler.createTables();
+        let handler: CoreDataHandler = CoreDataHandler(moc: getMOC()!);
         handler.createSensorsIfNotPresent()
         sensorsList.append(contentsOf: handler.getSensors());
- */
+
     }
     
     override func didReceiveMemoryWarning() {
